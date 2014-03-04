@@ -6,12 +6,16 @@
             [ 1  nil  2   1 ]])
 
 (defn format-row [row]
-  (map #(format "%04d" %) row))
+  (map #(if (nil? %)
+          "    "
+          (format "%04d" %))
+       row))
 
 (defn print-board [board]
   (doseq [row board]
-  (println (format-row row))))
+    (println (format-row row))))
 
+;;(print-board board)
 
 (defn -main []
   (print-board board))
