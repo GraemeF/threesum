@@ -1,6 +1,18 @@
 (ns threesum.core)
 
-(defn foo
-  "I don't do a whole lot."
-  [x]
-  (println x "Hello, World!"))
+(def board [[nil nil  3  nil]
+            [ 3   2  nil nil]
+            [nil  1   3   3 ]
+            [ 1  nil  2   1 ]])
+
+(defn format-row [row]
+  (map #(format "%04d" %) row))
+
+(defn print-board [board]
+  (doseq [row board]
+  (println (format-row row))))
+
+
+(defn -main []
+  (print-board board))
+
