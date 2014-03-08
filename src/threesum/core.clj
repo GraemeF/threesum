@@ -45,8 +45,9 @@
         (into [squashed] unsquashed))
       (into [(first row)] (shift (rest row) next squashable? squash)))))
 
-(defn shiftable-row? [row squashable-pair?]
-  (squashable-pair? (first row) (second row)))
+(defn shiftable-row? [row shift-row squashable-pair? squash-pair]
+  (not (= (shift-row row :different squashable-pair? squash-pair)
+          row)))
 
 ;;(print-board board)
 

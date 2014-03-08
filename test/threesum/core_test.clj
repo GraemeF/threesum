@@ -41,7 +41,8 @@
              (shift [:a :b :c :d] :next (constantly false) (constantly nil)) => [:a :b :c :d]))
 
 (facts "about `shiftable-row?`"
-       (fact "true when the row contains a squashable pair"
-             (shiftable-row? [:a :b :c] #(= [:a :b] [%1 %2])) => true)
-       (fact "false when the row is full of unsquashables"
-             (shiftable-row? [:a :b :c] (constantly false)) => false))
+       (let [row [:a :b :c]]
+         (fact "true when the row is different when squashed"
+               (shiftable-row? row (constantly [:other]) nil nil) => true)
+         (fact "false when the row is the same when squashed"
+               (shiftable-row? row (constantly row) nil nil) => false)))
