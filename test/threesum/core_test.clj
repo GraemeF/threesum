@@ -27,9 +27,5 @@
              (squash nil nil) => nil))
 
 (facts "about `shift`"
-       (fact "discards first nil cell when not squashable"
-             (shift [nil :a nil nil] #(= [nil :a] [%1 %2]) (constantly :a)) => [:a nil nil nil]
-             (shift [nil nil nil :a] (constantly false) (constantly :x)) => [nil nil :a nil]
-             (shift [:a :b :c :d] #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d nil])
        (fact "squashes first and second cells when squashable"
-             (shift [:a :b :c :d] #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d nil]))
+             (shift [:a :b :c :d] :next #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d :next]))

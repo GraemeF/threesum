@@ -25,10 +25,10 @@
     nil
     (+ (or a 0) b)))
 
-(defn shift [row squashable? squash]
-  (let [shifted (rest (conj row nil))]
+(defn shift [row next squashable? squash]
+  (let [shifted (conj row next)]
     (if (squashable? (first row) (second row))
-      (into [(squash (first row) (second row))] (rest shifted))
+      (into [(squash (first row) (second row))] (rest (rest shifted)))
       shifted)))
 
 ;;(print-board board)
