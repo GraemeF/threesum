@@ -21,6 +21,8 @@
              (sum 1 2) => 3))
 
 (facts "about `shift`"
-       (fact "moves into empty cell"
-             (shift [nil 1 nil nil]) => [1 nil nil nil]
-             (shift [nil nil nil 1]) => [nil nil 1 nil]))
+       (fact "moves into empty cell when not summable"
+             (shift [nil :a nil nil] (constantly false) (constantly :x)) => [:a nil nil nil]
+             (shift [nil nil nil :a] (constantly false) (constantly :x)) => [nil nil :a nil])
+       (comment (fact "sums at the edge when summable"
+             (shift [:a :b :c :d] (= [:a :b]) (constantly :ab)) => [:ab :c :d nil])))

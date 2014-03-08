@@ -21,7 +21,7 @@
 
 (def sum +)
 
-(defn shift [row]
+(defn shift [row summable? sum]
   (rest (conj row nil)))
 
 ;;(print-board board)
