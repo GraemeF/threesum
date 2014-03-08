@@ -35,10 +35,11 @@
       (recur (rest row) squashable?))))
 
 (defn shift [row next squashable? squash]
-  (let [shifted (conj row next)]
-    (if (squashable? (first row) (second row))
-      (into [(squash (first row) (second row))] (rest (rest shifted)))
-      shifted)))
+  (if (squashable? (first row) (second row))
+    (let [squashed (squash (first row) (second row))
+          unsquashed (conj (vec (drop 2 row)) next)]
+      (into [squashed] unsquashed))
+    (into [(first row)] (shift (rest row) next squashable? squash))))
 
 ;;(print-board board)
 
