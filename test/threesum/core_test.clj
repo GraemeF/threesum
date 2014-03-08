@@ -34,5 +34,7 @@
              (shift [:a :b :c :d] :next #(= [:b :c] [%1 %2]) (constantly :bc)) => [:a :bc :d :next])
        (fact "replaces nil in last cell"
              (shift [:a :b :c nil] :next (constantly false) (constantly nil)) => [:a :b :c :next])
+       (fact "does not squash next into last cell"
+             (shift [:a :b :c :d] :next #(= [:d :next] [%1 %2]) (constantly nil)) => [:a :b :c :d])
        (fact "does not squash if there are no squashable pairs"
              (shift [:a :b :c :d] :next (constantly false) (constantly nil)) => [:a :b :c :d]))
