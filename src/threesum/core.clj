@@ -30,7 +30,7 @@
 (defn first-squashable-pair [row squashable?]
   (if (squashable? (first row) (second row))
     [(first row) (second row)]
-    (first-squashable-pair (rest row) squashable?)))
+    (recur (rest row) squashable?)))
 
 (defn shift [row next squashable? squash]
   (let [shifted (conj row next)]
