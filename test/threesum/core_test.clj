@@ -20,13 +20,13 @@
              (squashable-pair? 3 6) => false
              (squashable-pair? 6 12) => false))
 
-(facts "about `squash`"
+(facts "about `squash-pair`"
        (fact "produces sum"
-             (squash 1 2) => 3)
+             (squash-pair 1 2) => 3)
        (fact "replaces nil with number"
-             (squash nil 5) => 5)
+             (squash-pair nil 5) => 5)
        (fact "squashes nils together"
-             (squash nil nil) => nil))
+             (squash-pair nil nil) => nil))
 
 (facts "about `shift`"
        (fact "squashes first squashable pair of cells"
