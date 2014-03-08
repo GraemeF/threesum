@@ -17,13 +17,20 @@
 
 (defn squashable? [a b]
   (or (nil? a)
-      (and (> a 2) (= a b))
-      (= 3 (+ a b))))
+      (and
+        (not (nil? b))
+        (or (and (> a 2) (= a b))
+            (= 3 (+ a b))))))
 
 (defn squash [a b]
   (if (nil? b)
     nil
     (+ (or a 0) b)))
+
+(defn first-squashable-pair [row squashable?]
+  (if (squashable? (first row) (second row))
+    [(first row) (second row)]
+    (first-squashable-pair (rest row) squashable?)))
 
 (defn shift [row next squashable? squash]
   (let [shifted (conj row next)]

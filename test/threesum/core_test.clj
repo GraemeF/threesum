@@ -3,8 +3,10 @@
   (:require [threesum.core :refer :all]))
 
 (facts "about `squashable?`"
-       (fact "nil is always squashable"
+       (fact "first nil is always squashable"
              (squashable? nil :a) => true)
+       (fact "second nil is not squashable"
+             (squashable? :a nil) => false)
        (fact "1 and 2 can squash"
              (squashable? 1 2) => true
              (squashable? 2 1) => true)
@@ -27,5 +29,6 @@
              (squash nil nil) => nil))
 
 (facts "about `shift`"
-       (fact "squashes first and second cells when squashable"
-             (shift [:a :b :c :d] :next #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d :next]))
+       (fact "squashes first squashable pair of cells"
+             (shift [:a :b :c :d] :next #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d :next]
+             (shift [:a :b :c :d] :next #(= [:b :c] [%1 %2]) (constantly :bc)) => [:a :bc :d :next]))
