@@ -15,8 +15,11 @@
   (doseq [row board]
     (println (format-row row))))
 
+(defn merge? [a b]
+  (or (and (> a 2) (= a b))
+      (= 3 (+ a b))))
+
 ;;(print-board board)
 
 (defn -main []
   (print-board board))
-
