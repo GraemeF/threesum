@@ -31,7 +31,8 @@
 (facts "about `shift`"
        (fact "squashes first squashable pair of cells"
              (shift [:a :b :c :d] :next #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d :next]
-             (shift [:a :b :c :d] :next #(= [:b :c] [%1 %2]) (constantly :bc)) => [:a :bc :d :next])
+             (shift [:a :b :c :d] :next #(= [:b :c] [%1 %2]) (constantly :bc)) => [:a :bc :d :next]
+             (shift [:a :a :a :a] :next (constantly true) (constantly :aa)) => [:aa :a :a :next])
        (fact "replaces nil in last cell"
              (shift [:a :b :c nil] :next (constantly false) (constantly nil)) => [:a :b :c :next])
        (fact "does not squash next into last cell"
