@@ -15,7 +15,7 @@
   (doseq [row board]
     (println (format-row row))))
 
-(defn squashable? [a b]
+(defn squashable-pair? [a b]
   (or (nil? a)
       (and
         (not (nil? b))
@@ -27,23 +27,23 @@
     nil
     (+ (or a 0) b)))
 
-(defn first-squashable-pair [row squashable?]
+(defn first-squashable-pair [row squashable-pair?]
   (if (empty? row)
     nil
-    (if (squashable? (first row) (second row))
+    (if (squashable-pair? (first row) (second row))
       [(first row) (second row)]
-      (recur (rest row) squashable?))))
+      (recur (rest row) squashable-pair?))))
 
-(defn shift [row next squashable? squash]
+(defn shift [row next squashable-pair? squash]
   (if (empty? (rest row))
     (if (nil? (first row))
       [next]
       row)
-    (if (squashable? (first row) (second row))
+    (if (squashable-pair? (first row) (second row))
       (let [squashed (squash (first row) (second row))
             unsquashed (conj (vec (drop 2 row)) next)]
         (into [squashed] unsquashed))
-      (into [(first row)] (shift (rest row) next squashable? squash)))))
+      (into [(first row)] (shift (rest row) next squashable-pair? squash)))))
 
 (defn shiftable-row? [row shift-row squashable-pair? squash-pair]
   (not (= (shift-row row :different squashable-pair? squash-pair)

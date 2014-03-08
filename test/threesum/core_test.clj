@@ -2,23 +2,23 @@
   (:use [midje.sweet])
   (:require [threesum.core :refer :all]))
 
-(facts "about `squashable?`"
+(facts "about `squashable-pair?`"
        (fact "first nil is always squashable"
-             (squashable? nil :a) => true)
+             (squashable-pair? nil :a) => true)
        (fact "second nil is not squashable"
-             (squashable? :a nil) => false)
+             (squashable-pair? :a nil) => false)
        (fact "1 and 2 can squash"
-             (squashable? 1 2) => true
-             (squashable? 2 1) => true)
+             (squashable-pair? 1 2) => true
+             (squashable-pair? 2 1) => true)
        (fact "pairs of no less than 3 can squash"
-             (squashable? 3 3) => true
-             (squashable? 6 6) => true)
+             (squashable-pair? 3 3) => true
+             (squashable-pair? 6 6) => true)
        (fact "pairs of 1 or 2 can't squash"
-             (squashable? 1 1) => false
-             (squashable? 2 2) => false)
+             (squashable-pair? 1 1) => false
+             (squashable-pair? 2 2) => false)
        (fact "different numbers can't squash"
-             (squashable? 3 6) => false
-             (squashable? 6 12) => false))
+             (squashable-pair? 3 6) => false
+             (squashable-pair? 6 12) => false))
 
 (facts "about `squash`"
        (fact "produces sum"
