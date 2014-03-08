@@ -49,6 +49,9 @@
   (not (= (shift-row row :different squashable-pair? squash-pair)
           row)))
 
+(defn shiftable-board? [board shiftable-row?]
+  (not (nil? (some shiftable-row? board))))
+
 ;;(print-board board)
 
 (defn -main []

@@ -46,3 +46,11 @@
                (shiftable-row? row (constantly [:other]) nil nil) => true)
          (fact "false when the row is the same when squashed"
                (shiftable-row? row (constantly row) nil nil) => false)))
+
+(facts "about `shiftable-board?`"
+       (let [board [[:a1 :a2][:b1 :b2]]]
+         (fact "true when a row is shiftable"
+               (shiftable-board? board (constantly true)) => true)
+         (fact "false when no rows are shiftable"
+               (shiftable-board? board (constantly false)) => false)))
+
