@@ -15,9 +15,14 @@
   (doseq [row board]
     (println (format-row row))))
 
-(defn merge? [a b]
+(defn sum? [a b]
   (or (and (> a 2) (= a b))
       (= 3 (+ a b))))
+
+(def sum +)
+
+(defn shift [row]
+  (rest (conj row nil)))
 
 ;;(print-board board)
 
