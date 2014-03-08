@@ -34,7 +34,7 @@
       [(first row) (second row)]
       (recur (rest row) squashable-pair?))))
 
-(defn shift [row next squashable-pair? squash-pair]
+(defn shift-row [row next squashable-pair? squash-pair]
   (if (empty? (rest row))
     (if (nil? (first row))
       [next]
@@ -43,7 +43,7 @@
       (let [squashed (squash-pair (first row) (second row))
             unsquashed (conj (vec (drop 2 row)) next)]
         (into [squashed] unsquashed))
-      (into [(first row)] (shift (rest row) next squashable-pair? squash-pair)))))
+      (into [(first row)] (shift-row (rest row) next squashable-pair? squash-pair)))))
 
 (defn shiftable-row? [row shift-row squashable-pair? squash-pair]
   (not (= (shift-row row :different squashable-pair? squash-pair)
