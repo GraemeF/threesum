@@ -24,5 +24,5 @@
        (fact "moves into empty cell when not summable"
              (shift [nil :a nil nil] (constantly false) (constantly :x)) => [:a nil nil nil]
              (shift [nil nil nil :a] (constantly false) (constantly :x)) => [nil nil :a nil])
-       (comment (fact "sums at the edge when summable"
-             (shift [:a :b :c :d] (= [:a :b]) (constantly :ab)) => [:ab :c :d nil])))
+       (fact "sums at the edge when summable"
+             (shift [:a :b :c :d] #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d nil]))

@@ -22,7 +22,10 @@
 (def sum +)
 
 (defn shift [row summable? sum]
-  (rest (conj row nil)))
+  (let [shifted (rest (conj row nil))]
+    (if (summable? (first row) (second row))
+      (into [(sum (first row) (second row))] (rest shifted))
+      shifted)))
 
 ;;(print-board board)
 
