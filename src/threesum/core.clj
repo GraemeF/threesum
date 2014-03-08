@@ -28,9 +28,11 @@
     (+ (or a 0) b)))
 
 (defn first-squashable-pair [row squashable?]
-  (if (squashable? (first row) (second row))
-    [(first row) (second row)]
-    (recur (rest row) squashable?)))
+  (if (empty? row)
+    nil
+    (if (squashable? (first row) (second row))
+      [(first row) (second row)]
+      (recur (rest row) squashable?))))
 
 (defn shift [row next squashable? squash]
   (let [shifted (conj row next)]
