@@ -55,7 +55,9 @@
 (defn shift-board [board shift-row]
   (map shift-row board))
 
-;;(print-board board)
-
 (defn -main []
-  (print-board board))
+  (let [sr #(shift-row %1 nil squashable-pair? squash-pair)]
+    (println "Before:")
+    (print-board board)
+    (println "After:")
+    (print-board (shift-board board sr))))
