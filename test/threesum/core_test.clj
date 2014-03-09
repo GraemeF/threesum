@@ -3,10 +3,10 @@
   (:require [threesum.core :refer :all]))
 
 (facts "about `squashable-pair?`"
-       (fact "first nil is always squashable"
-             (squashable-pair? nil :a) => true)
-       (fact "second nil is not squashable"
-             (squashable-pair? :a nil) => false)
+       (fact "first 0 is always squashable"
+             (squashable-pair? 0 :a) => true)
+       (fact "second 0 is not squashable"
+             (squashable-pair? :a 0) => false)
        (fact "1 and 2 can squash"
              (squashable-pair? 1 2) => true
              (squashable-pair? 2 1) => true)
@@ -23,29 +23,29 @@
 (facts "about `squash-pair`"
        (fact "produces sum"
              (squash-pair 1 2) => 3)
-       (fact "replaces nil with number"
-             (squash-pair nil 5) => 5)
-       (fact "squashes nils together"
-             (squash-pair nil nil) => nil))
+       (fact "replaces 0 with number"
+             (squash-pair 0 5) => 5)
+       (fact "squashes 0s together"
+             (squash-pair 0 0) => 0))
 
 (facts "about `shift-row`"
        (fact "squashes first squashable pair of cells"
              (shift-row [:a :b :c :d] :next #(= [:a :b] [%1 %2]) (constantly :ab)) => [:ab :c :d :next]
              (shift-row [:a :b :c :d] :next #(= [:b :c] [%1 %2]) (constantly :bc)) => [:a :bc :d :next]
              (shift-row [:a :a :a :a] :next (constantly true) (constantly :aa)) => [:aa :a :a :next])
-       (fact "replaces nil in last cell"
-             (shift-row [:a :b :c nil] :next (constantly false) (constantly nil)) => [:a :b :c :next])
+       (fact "replaces 0 in last cell"
+             (shift-row [:a :b :c 0] :next (constantly false) (constantly 0)) => [:a :b :c :next])
        (fact "does not squash next into last cell"
-             (shift-row [:a :b :c :d] :next #(= [:d :next] [%1 %2]) (constantly nil)) => [:a :b :c :d])
+             (shift-row [:a :b :c :d] :next #(= [:d :next] [%1 %2]) (constantly 0)) => [:a :b :c :d])
        (fact "does not squash if there are no squashable pairs"
-             (shift-row [:a :b :c :d] :next (constantly false) (constantly nil)) => [:a :b :c :d]))
+             (shift-row [:a :b :c :d] :next (constantly false) (constantly 0)) => [:a :b :c :d]))
 
 (facts "about `shiftable-row?`"
        (let [row [:a :b :c]]
          (fact "true when the row is different when squashed"
-               (shiftable-row? row (constantly [:other]) nil nil) => true)
+               (shiftable-row? row (constantly [:other]) 0 0) => true)
          (fact "false when the row is the same when squashed"
-               (shiftable-row? row (constantly row) nil nil) => false)))
+               (shiftable-row? row (constantly row) 0 0) => false)))
 
 (facts "about `shiftable-board?`"
        (let [board [[:a1 :a2][:b1 :b2]]]

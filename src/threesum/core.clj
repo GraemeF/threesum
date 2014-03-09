@@ -1,13 +1,13 @@
 (ns threesum.core)
 (use '[clojure.core.match :only (match)])
 
-(def board [[nil nil  3  nil]
-            [ 3   2  nil nil]
-            [nil  1   3   3 ]
-            [ 1  nil  2   1 ]])
+(def board [[0 0 3 0]
+            [3 2 0 0]
+            [0 1 3 3]
+            [1 0 2 1]])
 
 (defn format-row [row]
-  (map #(if (nil? %)
+  (map #(if (= 0 %)
           "    "
           (format "%04d" %))
        row))
@@ -18,7 +18,7 @@
 
 (defn squashable-pair? [a b]
   (match [a b]
-         [nil _] true
+         [0 _] true
          [1 2] true
          [2 1] true
          [1 1] false
@@ -26,20 +26,18 @@
          :else (= a b)))
 
 (defn squash-pair [a b]
-  (if (nil? b)
-    nil
-    (+ (or a 0) b)))
+    (+ a b))
 
 (defn first-squashable-pair [row squashable-pair?]
   (if (empty? row)
-    nil
+    0
     (if (squashable-pair? (first row) (second row))
       [(first row) (second row)]
       (recur (rest row) squashable-pair?))))
 
 (defn shift-row [row next squashable-pair? squash-pair]
   (if (empty? (rest row))
-    (if (nil? (first row))
+    (if (= 0 (first row))
       [next]
       row)
     (if (squashable-pair? (first row) (second row))
@@ -59,7 +57,7 @@
   (map shift-row board))
 
 (defn -main []
-  (let [sr #(shift-row %1 nil squashable-pair? squash-pair)]
+  (let [sr #(shift-row %1 0 squashable-pair? squash-pair)]
     (println "Before:")
     (print-board board)
     (println "After:")
