@@ -54,3 +54,7 @@
          (fact "false when no rows are shiftable"
                (shiftable-board? board (constantly false)) => false)))
 
+(facts "about `shift-board`"
+       (fact "shifts all rows"
+             (shift-board [[1 2 3][4 5 6][7 8 9]] #(map inc %1)) => [[2 3 4][5 6 7][8 9 10]]))
+

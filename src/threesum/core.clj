@@ -52,6 +52,9 @@
 (defn shiftable-board? [board shiftable-row?]
   (not (nil? (some shiftable-row? board))))
 
+(defn shift-board [board shift-row]
+  (map shift-row board))
+
 ;;(print-board board)
 
 (defn -main []
