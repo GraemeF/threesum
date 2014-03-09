@@ -23,8 +23,7 @@
          [2 1] true
          [1 1] false
          [2 2] false
-         :else
-         (= a b)))
+         :else (= a b)))
 
 (defn squash-pair [a b]
   (if (nil? b)
