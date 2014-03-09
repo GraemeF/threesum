@@ -1,4 +1,5 @@
 (ns threesum.core)
+(use '[clojure.core.match :only (match)])
 
 (def board [[nil nil  3  nil]
             [ 3   2  nil nil]
@@ -16,11 +17,14 @@
     (println (format-row row))))
 
 (defn squashable-pair? [a b]
-  (or (nil? a)
-      (and
-        (not (nil? b))
-        (or (and (> a 2) (= a b))
-            (= 3 (+ a b))))))
+  (match [a b]
+         [nil _] true
+         [1 2] true
+         [2 1] true
+         [1 1] false
+         [2 2] false
+         :else
+         (= a b)))
 
 (defn squash-pair [a b]
   (if (nil? b)
