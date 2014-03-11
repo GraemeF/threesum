@@ -26,11 +26,11 @@
          :else (= a b)))
 
 (defn squash-pair [a b]
-    (+ a b))
+  (+ a b))
 
 (defn first-squashable-pair [row squashable-pair?]
   (if (empty? row)
-    0
+    nil
     (if (squashable-pair? (first row) (second row))
       [(first row) (second row)]
       (recur (rest row) squashable-pair?))))
