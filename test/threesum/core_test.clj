@@ -59,7 +59,7 @@
              (next-fillers 0 :next :empty) => [])
        (fact "contains next when there is space for 1"
              (next-fillers 1 :next :empty) => [:next])
-       (fact "contains 1 next and the rest empty when there is space for 1"
+       (fact "contains 1 next and the rest empty when there is space for more than 1"
              (next-fillers 5 :next :empty) => #(= 1 (count (filter #{:next} %1)))
              (next-fillers 5 :next :empty) => #(= 4 (count (filter #{:empty} %1)))))
 

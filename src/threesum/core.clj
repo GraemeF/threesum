@@ -59,7 +59,7 @@
 (defn next-fillers [spaces next empty]
   (if (= 0 spaces)
     []
-    (into [next] (repeat (- spaces 1) empty))))
+    (assoc (vec (repeat spaces empty)) (rand-int spaces) next)))
 
 (defn -main []
   (let [sr #(shift-row %1 0 squashable-pair? squash-pair)]
