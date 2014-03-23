@@ -63,7 +63,14 @@
              (next-fillers 5 :next :empty) => #(= 1 (count (filter #{:next} %1)))
              (next-fillers 5 :next :empty) => #(= 4 (count (filter #{:empty} %1)))))
 
+(facts "about `rotate-left`"
+       (fact "rotates anticlockwise by 90 degrees"
+             (rotate-left [[:a1 :a2][:b1 :b2]]) => [[:a2 :b2][:a1 :b1]]))
+
+(facts "about `rotate-right`"
+       (fact "rotates clockwise by 90 degrees"
+             (rotate-right [[:a1 :a2][:b1 :b2]]) => [[:b1 :a1][:b2 :a2]]))
+
 (facts "about `shift-board`"
        (fact "shifts all rows"
              (shift-board [[1 2 3][4 5 6][7 8 9]] #(map inc %1)) => [[2 3 4][5 6 7][8 9 10]]))
-

@@ -61,6 +61,13 @@
     []
     (assoc (vec (repeat spaces empty)) (rand-int spaces) next)))
 
+(defn rotate-right [coll]
+  (apply mapv #(into [] %&)
+         (reverse coll)))
+
+(defn rotate-left [coll]
+  (-> coll reverse rotate-right reverse))
+
 (defn -main []
   (let [sr #(shift-row %1 0 squashable-pair? squash-pair)]
     (println "Before:")
