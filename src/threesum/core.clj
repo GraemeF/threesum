@@ -8,8 +8,8 @@
 
 (defn format-row [row]
   (map #(if (= 0 %)
-          "    "
-          (format "%04d" %))
+          "  "
+          (format "%02d" %))
        row))
 
 (defn print-board [board]
@@ -55,6 +55,11 @@
 
 (defn shift-board [board shift-row]
   (map shift-row board))
+
+(defn next-fillers [spaces next empty]
+  (if (= 0 spaces)
+    []
+    (into [next] (repeat (- spaces 1) empty))))
 
 (defn -main []
   (let [sr #(shift-row %1 0 squashable-pair? squash-pair)]

@@ -54,6 +54,15 @@
          (fact "false when no rows are shiftable"
                (shiftable-board? board (constantly false)) => false)))
 
+(facts "about `next-fillers`"
+       (fact "empty when there are no spaces"
+             (next-fillers 0 :next :empty) => [])
+       (fact "contains next when there is space for 1"
+             (next-fillers 1 :next :empty) => [:next])
+       (fact "contains 1 next and the rest empty when there is space for 1"
+             (next-fillers 5 :next :empty) => #(= 1 (count (filter #{:next} %1)))
+             (next-fillers 5 :next :empty) => #(= 4 (count (filter #{:empty} %1)))))
+
 (facts "about `shift-board`"
        (fact "shifts all rows"
              (shift-board [[1 2 3][4 5 6][7 8 9]] #(map inc %1)) => [[2 3 4][5 6 7][8 9 10]]))
